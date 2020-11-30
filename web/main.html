@@ -1,0 +1,243 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en" dir="ltr">
+<meta charset="utf-8" />
+<?php
+    session_start();    //session 가져오기
+
+    //session에 데이터가 없다면 로그인 화면으로 GO
+    if (!isset($_SESSION['guest_id'])) {
+         header('Location : http://chicken.dothome.co.kr/index.html');
+    }
+?>
+<head>
+    <link href="cssfile.css" media="screen and (min-width: 512px) and (max-width: 1024px)" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote</title>
+</head>
+<body topmargin="0" leftmargin="0" >
+<!-- 메뉴 -->
+<div class="menubar">
+    <h2>YOU MUST VOTE</h2>
+
+    <!-- 우측 메뉴 바 -->
+    <ul>
+        <li><a href="main.html">Home</a></li>
+        <li><a href="logout.php">Logout</a></li>
+        <li><a href="VoteRegister.html">Vote Register</a></li>
+        <li><a href="mypageCheck.html">MyPage</a></li>
+    </ul>
+</div>
+<h3 id="text">VOTE LIST</h3>
+<body class="container">
+
+
+<div class="table-responsive">
+    <?php
+        $con = mysqli_connect("localhost", "chicken", "k20162020#", "chicken");
+
+        $sql = "SELECT aritcle, contents, DATE(time) as time FROM board order by time desc";
+        $result = $con->query($sql);
+        $total = mysqli_num_rows($result);
+    ?>
+    <table>
+        <thead>
+        <tr>
+            <th>Articles</th>
+            <th>Contents</th>
+            <th>Register Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+            while($rows = mysqli_fetch_assoc($result)){
+         ?>
+        <tr>
+            <td><a href = "http://localhost:3000"><?php echo $rows['aritcle'];?></a></td>
+            <td><?php echo $rows['contents'];?></td>
+            <td><?php echo $rows['time'];?></td>
+        </tr>
+        <?php
+        $total--;
+                }
+        ?>
+          </tbody>
+      </table>
+  </div>
+</body>
+</body>
+</html>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Architects+Daughter&display=swap" rel="stylesheet">
+<style>
+    @media screen and (max-device-width:640px) and (device-aspect-ratio:9/16), screen and (max-device-width:640px) and (device-aspect-ratio:16/9){ }
+    @font-face { font-family: 'Cafe24Oneprettynight';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff');
+        font-weight: bold;
+        font-style: normal;
+    }
+    @font-face {
+        font-family: 'Architects Daughter', cursive;
+    }
+    html{
+        margin:0 auto;
+        background-color: #fcf9fa;
+
+    }
+    h2{/*제목 위치지정*/
+        font-family: 'Architects Daughter', cursive;
+        font-size:45px;
+        color : #8f4d57;
+        text-align:center;
+        font-weight:bold;
+    }
+    h3{/*투표리스트 텍스트*/
+        font-family: 'Architects Daughter', cursive;
+        font-size:28px;
+        color : #c27884;
+        font-weight:bold;
+        margin-left: 10%;
+    }
+    .table-responsive {
+        background-color: #ffffff;
+        position: absolute;
+        padding: 2%;
+        border: 2px solid #cfa6ac;
+        border-radius: 5px;
+        top: 53%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-collapse: collapse;
+        width: 80%;
+    }
+    table{
+        margin-left:5%;
+    }
+    th,td{
+        border-bottom: 1px solid #f0e9eb;
+        text-align:center;
+
+    }
+    th{/*표 목록 텍스트*/
+        padding: 1%;
+        margin: 1%;
+        font-family: 'Architects Daughter','Cafe24Oneprettynight', cursive;
+        font-size:20px;
+        color : #b4747e;
+        text-align:center;
+        margin-right:0.5%;
+        margin-left:0.5%;
+        width: 10%;
+    }
+    td{/*표 내용 텍스트*/
+        font-family: 'Cafe24Oneprettynight', cursive;
+        font-size:15px;
+        color : #96626a;
+    }
+    tr{
+       margin: 1%;
+    }
+    div{
+        background-color: #ffffff;
+
+    }
+    form{
+        font-family: 'Architects Daughter', cursive;
+        text-align:center;
+    }
+
+    /*우측 상단 바*/
+    .menubar{
+        margin:-10px;
+        padding:5px;
+        font: 67.5% 'Architects Daughter', cursive;
+        font-size:15px;
+    }
+
+    .menubar ul{
+        height:50px;
+        list-style:none;
+        margin-left:36%;
+        color:#7a6d71;
+        padding:0;
+    }
+
+    .menubar li{
+        float:left;
+        padding:0px;
+    }
+
+    .menubar li a{
+        display:block;
+        font-weight:normal;
+        line-height:50px;
+        margin:0px;
+        padding:0px 25px;
+        text-align:center;
+        text-decoration:none;
+        color:#ad9aa0;
+    }
+
+    .menubar li a:hover, .menubar ul li:hover a{
+        background:#7a6d71;
+        color:#FFFFFF;
+        text-decoration:none;
+    }
+
+    .menubar li li {
+        background: #a19498;
+        display:block;
+        float:none;
+        margin:0px;
+        padding:0px;
+        width:200px;
+    }
+
+    .menubar li:hover li a{
+        background:none;
+    }
+
+    .menubar li ul a{
+        display:block;
+        height:50px;
+        font-size:12px;
+        font-style:normal;
+        margin:0px;
+        padding:0px 10px 0px 15px;
+        text-align:left;
+    }
+
+    .menubar li ul a:hover, .menubar li ul li:hover a{
+        background: #a19498;
+        border:0px;
+        color:#ffffff;
+        text-decoration:none;
+    }
+
+    .menubar p{
+        clear:left;
+    }
+
+    .submit-btn {
+        padding:4px;
+        margin:5px;
+        width:150px;
+        font-family: 'Architects Daughter', cursive;
+        background: #a19498;
+        color:#ffffff;
+        font-weight:bold;
+        border:0;
+        border-radius: 5px;
+        outling:0;
+        cursor:pointer;
+    }
+    .links{
+        text-align:center;
+    }
+    a{
+        text-decoration:none;
+        text-align:center;
+        color : #96626a;
+    }
+</style>
+
+

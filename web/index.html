@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en" dir="ltr">
+<meta charset="utf-8" />
+<head>
+    <link href="cssfile.css" media="screen and (min-width: 512px) and (max-width: 1024px)" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vote</title>
+</head>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#form_data').submit(function(e){
+            e.preventDefault();
+            $.ajax({
+                type : 'POST',
+                url : 'http://chicken.dothome.co.kr/loginPro.php',
+                data : $(this).serialize(),
+                success : function(result){
+                    if(result=="success"){
+                        alert("로그인 성공");
+                        location.replace('http://chicken.dothome.co.kr/main.html')
+                    }else if(result=="Fail:session"){
+                        alert("세션 저장 실패...다시 시도 해주세요.");
+                    }else if(result=="Fail:password"){
+                        alert("비밀번호가 틀렸습니다. 다시 시도 해주세요.");
+                    }else if(result=="Fail:empty"){
+                        alert("회원 정보가 없습니다. 회원가입을 해주세요.");
+                    }
+                },
+                error : function(xtr,status,error){
+                    alert(xtr +":"+status+":"+error);
+                }
+            });
+        });
+    });
+</script>
+<body topmargin="0" leftmargin="0" >
+<!-- 메뉴 -->
+<div class="menubar">
+    <h2>YOU MUST VOTE</h2>
+
+    <!-- 우측 메뉴 바 -->
+    <ul>
+        <!--<li><a href="main.jsp">Home</a></li>
+        <li><a href="login.jsp" id="current">Login</a></li>
+        <li><a href="basket.jsp">Vote Register</a></li>
+        <li><a href="basket.jsp">MyPage</a></li>-->
+        <a>!! When you login, you can see VOTE LIST :) !!</a>
+    </ul>
+</div>
+<!--<h3 id="text">VOTE LIST</h3>-->
+<div class="login-form">
+    <form method="POST" id = "form_data">
+        <h4 id="text">LOGIN</h4>
+        <input type="text" name="guest_id" id="guest_id" placeholder="id"><br>
+        <input type="password" name="guest_password" id="guest_password" placeholder="password"><br>
+        <input type="submit" value="Click here" class="submit-btn">
+    </form>
+
+    <div class="links">
+        <a href="register.jsp" method="post">Register</a>
+    </div>
+</div>
+</body>
+</html>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Architects+Daughter&display=swap" rel="stylesheet">
+<style>
+    @media screen and (max-device-width:640px) and (device-aspect-ratio:9/16), screen and (max-device-width:640px) and (device-aspect-ratio:16/9){ }
+
+    @font-face {
+        font-family: 'Architects Daughter', cursive;
+    }
+    html{
+        margin:0 auto;
+        background-color: #fcf9fa;
+
+    }
+    h2{/*제목 위치지정*/
+        font-family: 'Architects Daughter', cursive;
+        font-size:45px;
+        color : #8f4d57;
+        text-align:center;
+        font-weight:bold;
+    }
+    h3{/*투표리스트 텍스트*/
+        font-family: 'Architects Daughter', cursive;
+        font-size:20px;
+        color : #b4747e;
+        margin-left: 40px;
+    }
+    h4{/*로그인*/
+        font-family: 'Architects Daughter', cursive;
+        font-size:20px;
+        color : #b4747e;
+
+        /*  margin-left: 20px;*/
+    }
+    div{
+        background-color: #ffffff;
+
+    }
+    form{
+        font-family: 'Architects Daughter', cursive;
+        text-align:center;
+    }
+    .login-form {
+        background-color: #ffffff;
+        position: absolute;
+        padding: 25px;
+        width: 300px;
+        border: 2px solid #cfa6ac;
+        border-radius: 5px;
+        top: 55%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    /*우측 상단 바*/
+    .menubar{
+        margin:-10px;
+        padding:5px;
+        font: 67.5% 'Architects Daughter', cursive;
+        font-size:23px;
+    }
+
+    .menubar ul{
+        height:50px;
+        list-style:none;
+        margin-left:35%;
+        color:#7a6d71;
+        padding:0;
+    }
+
+    .menubar li{
+        float:left;
+        padding:0px;
+    }
+
+    .menubar li a{
+        display:block;
+        font-weight:normal;
+        line-height:50px;
+        margin:0px;
+        padding:0px 25px;
+        text-align:center;
+        text-decoration:none;
+        margin-left:50%;
+    }
+
+    .menubar li a:hover, .menubar ul li:hover a{
+        background:#7a6d71;
+        color:#FFFFFF;
+        text-decoration:none;
+    }
+
+    .menubar li li {
+        background: #a19498;
+        display:block;
+        float:none;
+        margin:0px;
+        padding:0px;
+        width:200px;
+    }
+
+    .menubar li:hover li a{
+        background:none;
+    }
+
+    .menubar li ul a{
+        display:block;
+        height:50px;
+        font-size:12px;
+        font-style:normal;
+        margin:0px;
+        padding:0px 10px 0px 15px;
+        text-align:left;
+    }
+
+    .menubar li ul a:hover, .menubar li ul li:hover a{
+        background: #a19498;
+        border:0px;
+        color:#ffffff;
+        text-decoration:none;
+    }
+
+    .menubar p{
+        clear:left;
+    }
+
+    .submit-btn {
+        padding:4px;
+        margin:5px;
+        width:150px;
+        font-family: 'Architects Daughter', cursive;
+        background: #a19498;
+        color:#ffffff;
+        font-weight:bold;
+        border:0;
+        border-radius: 5px;
+        outling:0;
+        cursor:pointer;
+    }
+    .links{
+        text-align:center;
+    }
+    .links a{
+        font-family: 'Architects Daughter', cursive;
+        text-align:center;
+        color:#5823ad;
+    }
+</style>
+
+
