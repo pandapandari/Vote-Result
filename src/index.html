@@ -1,0 +1,231 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+    <link href="cssfile.css" media="screen and (min-width: 512px) and (max-width: 1024px)" rel="stylesheet">
+    <meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vote</title>
+</head>
+
+<body topmargin="0" leftmargin="0" >
+<!-- 메뉴 -->
+<div class="menubar">
+    <h2>YOU MUST VOTE</h2>
+
+    <!-- 우측 메뉴 바 -->
+    <ul>
+        <li><a href="main.html">Home</a></li>
+        <li><a href="logout.php"">Logout</a></li>
+        <li><a href="VoteRegister.html">Vote Register</a></li>
+        <li><a href="mypage.html">MyPage</a></li>
+    </ul>
+</div>
+<h3 id="text">Vote Result</h3>
+
+    <!-- 로딩바 -->
+    <div id="loader">
+        <p>로딩중...</p>
+    </div>
+
+    <!-- 투표결과 표시 -->
+    <div id="content" class = "myp" style="display: none;">
+        <table class="mypage-form" style="width: 100%">
+            <colgroup>
+                <col width="10">
+		<col width="*">
+                <col width="100">
+            </colgroup>
+            <thead>
+                <tr>
+		    <th scope="col">No.</th>
+		    <th scope="col">Candidate</th>
+                    <th scope="col">Voting..</th>
+                </tr>
+            </thead>
+            <tbody id="candidatesResults">
+            </tbody>
+        </table>
+        <hr>
+
+        <!-- 투표하기 -->
+        <h3>VOTE HERE!</h3>
+        <select id="candidateSelect">
+            <option value="">Select Candidate</option>
+        </select>
+        <button id="btnVote" class="submit-btn">--> VOTE <--</button>
+        <hr>
+
+        <!-- 계정 정보 표시 -->
+        <p id="accountAddress"></p>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/web3.min.js"></script>
+    <script src="js/truffle-contract.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
+
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Do+Hyeon&family=Architects+Daughter&display=swap" rel="stylesheet">
+<style>
+    @font-face { font-family: 'Cafe24Oneprettynight';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Oneprettynight.woff') format('woff');
+        font-weight: bold;
+        font-style: normal;
+    }
+    html{
+        margin:0 auto;
+        background-color: #fcf9fa;
+    }
+    h2{/*제목 위치지정*/
+        font-family: 'Architects Daughter', cursive;
+        font-size:45px;
+        color : #8f4d57;
+        text-align:center;
+        font-weight:bold;
+    }
+    h3{/*투표리스트 텍스트*/
+        font-family: 'Architects Daughter','Cafe24Oneprettynight', cursive;
+        font-size:28px;
+        color : #c27884;
+        font-weight:bold;
+        text-align:center;
+    }
+    imput{
+        font-family: 'Architects Daughter', cursive;
+        color:#f0e9eb;
+    }
+
+    /*우측 상단 바*/
+    .menubar{
+        margin:-10px;
+        padding:5px;
+        font: 67.5% 'Architects Daughter', cursive;
+        font-size:15px;
+    }
+
+    .menubar ul{
+        height:50px;
+        list-style:none;
+        margin-left:36%;
+        color:#7a6d71;
+        padding:0;
+    }
+
+    .menubar li{
+        float:left;
+        padding:0px;
+    }
+
+    .menubar li a{
+        display:block;
+        font-weight:normal;
+        line-height:50px;
+        margin:0px;
+        padding:0px 25px;
+        text-align:center;
+        text-decoration:none;
+        color:#ad9aa0;
+    }
+
+    .menubar li a:hover, .menubar ul li:hover a{
+        background:#7a6d71;
+        color:#FFFFFF;
+        text-decoration:none;
+    }
+
+    .menubar li li {
+        background: #a19498;
+        display:block;
+        float:none;
+        margin:0px;
+        padding:0px;
+        width:200px;
+    }
+
+    .menubar li:hover li a{
+        background:none;
+    }
+
+    .menubar li ul a{
+        display:block;
+        height:50px;
+        font-size:12px;
+        font-style:normal;
+        margin:0px;
+        padding:0px 10px 0px 15px;
+        text-align:left;
+    }
+
+    .menubar li ul a:hover, .menubar li ul li:hover a{
+        background: #a19498;
+        border:0px;
+        color:#ffffff;
+        text-decoration:none;
+    }
+
+    .menubar p{
+        clear:left;
+    }
+
+    .myp{
+        border: 2px solid #cfa6ac;
+        border-radius: 5%;
+        background-color: #ffffff;
+        position: absolute;
+        padding : 2%;
+        padding-left:8%;
+        padding-right:8%;
+        margin-bottom: 5%;
+        top: 65%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-collapse: collapse;
+        width: 15%;
+        font-family: 'Cafe24Oneprettynight', cursive;
+        text-align: center;
+    }
+
+    .mypage-form th {
+        font-family: 'Cafe24Oneprettynight', cursive;
+        font-size:15px;
+        font-weight: bold;
+        text-align:right;
+        margin-bottom: 5%;
+        width:10%;
+        padding:2%;
+        text-decoration:none;
+    }
+    .mypage-form td {
+        font-family: 'Cafe24Oneprettynight', cursive;
+        font-size:20px;
+        color:#7a5258;
+        text-align:center;
+        margin-right:10%;
+        padding:3%;
+        text-decoration:none;
+    }
+    .submit-btn {
+        padding:4px;
+        margin:5px;
+        width:150px;
+        font-family: 'Architects Daughter', cursive;
+        background: #a19498;
+        color:#ffffff;
+        font-weight:bold;
+        border:0;
+        border-radius: 5px;
+        outling:0;
+        cursor:pointer;
+    }
+
+    link {
+        font-family: 'Architects Daughter';
+        font-size:10px;
+        text-align:right;
+        text-decoration:none;
+        color:#5823ad;
+    }
+
+</style>
+
